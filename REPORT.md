@@ -50,7 +50,16 @@ The resulting setup uses service mesh features for secure east-west traffic cont
 
 ## Evidence
 
-The evidence folder contains screenshots that document architecture, deployment status, networking and security configuration, API validation, and persistence behavior after service restart. The included files are `architecture.png`, `pods.png`, `services-ingress-networkpolicy.png`, `security.png`, `aggregate.png`, `todos.png`, `dashboard.png`, and `persistence-after-restart.png`.
+All submission evidence is provided as PNG files in `/evidence`.
+
+- `architecture.png`: architecture diagram showing the flow `Ingress -> MyService -> MyService2 -> Postgres`.
+- `pods.png`: running state of application pods in namespace `todo-platform`.
+- `services-ingress-networkpolicy.png`: services, ingress exposure, and applied network policies.
+- `security.png`: security-related cluster objects and policy posture.
+- `aggregate.png`: successful `/aggregate` call proving service-to-service communication.
+- `todos.png`: todo list response showing stored todo data.
+- `dashboard.png`: combined dashboard response with greeting, summary, and todos.
+- `persistence-after-restart.png`: data persistence validation after restarting `myservice2`.
 
 ## Conclusion
 
