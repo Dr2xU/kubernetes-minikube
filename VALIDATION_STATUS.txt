@@ -1,0 +1,33 @@
+Validation snapshot - 2026-04-03
+
+Objective ladder from the brief:
+- 10/20 one local service: complete
+- 12/20 gateway/ingress: complete
+- 14/20 two services: complete
+- 16/20 database + storage: complete
+- 18/20 security controls: complete
+- 20/20 strongly secured cluster path: complete with Istio strict mTLS
+
+PDF recheck notes:
+- The brief outline in `Projet 2025.pdf` contains the graded ladder markers `10/20`, `12/20`, and an evaluation section.
+- The same outline includes `Option : gRPC`, confirming gRPC is optional.
+- Linked references in the brief include Kubernetes, ingress routing, RBAC, and Docker Hub security pages, matching the implemented stack.
+
+Mandatory constraints:
+- REST microservices: respected
+- Docker + Kubernetes: respected
+- gRPC: optional, not required
+
+Cluster checks:
+- namespace todo-platform labeled with istio-injection=enabled
+- workloads myservice, myservice2, postgres running with sidecars (2/2)
+- ingress host myservice.info routes to myservice
+- myservice2 remains internal in base ingress
+- PeerAuthentication STRICT active
+- AuthorizationPolicy rules active for intended paths
+- RBAC read-only identity: platform-auditor / platform-readonly
+
+API checks:
+- GET / => Hello
+- GET /aggregate => MyService -> Hello from MyService2
+- GET /dashboard => greeting + summary + todos payload returned

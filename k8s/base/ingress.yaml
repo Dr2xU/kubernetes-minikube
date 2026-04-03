@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: example-ingress
+  name: todo-platform
 spec:
   ingressClassName: nginx
   rules:
@@ -13,15 +13,5 @@ spec:
             backend:
               service:
                 name: myservice
-                port:
-                  number: 8080
-    - host: myservice2.info
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: myservice2
                 port:
                   number: 8080

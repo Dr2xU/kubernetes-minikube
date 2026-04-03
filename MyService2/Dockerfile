@@ -1,13 +1,14 @@
-# Stage 1: Build
-FROM gradle:8.5-jdk21 AS build
-WORKDIR /app
-COPY build.gradle settings.gradle ./
+FROM eclipse-temurin:21-jdk AS build
+WORKDIR /workspace
+COPY gradlew gradlew.bat build.gradle settings.gradle ./
+COPY gradle ./gradle
 COPY src ./src
-RUN gradle build --no-daemon -x test
+RUN sed -i 's/\r$//' gradlew && chmod +x gradlew && ./gradlew bootJar --no-daemon
 
-# Stage 2: Run
 FROM eclipse-temurin:21-jre
 WORKDIR /app
-COPY --from=build /app/build/libs/*.jar app.jar
+RUN useradd --uid 1001 --create-home appuser && mkdir -p /tmp && chown -R appuser:appuser /app /tmp
+COPY --from=build /workspace/build/libs/*.jar app.jar
+USER 1001
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: todo-platform
+spec:
+  hosts:
+    - myservice.info
+  gateways:
+    - todo-platform-gateway
+  http:
+    - match:
+        - headers:
+            host:
+              exact: myservice.info
+      route:
+        - destination:
+            host: myservice
+            port:
+              number: 8080
